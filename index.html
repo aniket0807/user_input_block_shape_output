@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #studentContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .student-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #007bff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .student-card h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        .student-card p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Details</h1>
+
+        <div class="form-box">
+
+            <input type="text" id="name" placeholder="Enter Student Name">
+
+            <input type="number" id="roll" placeholder="Enter Roll Number">
+
+            <input type="text" id="course" placeholder="Enter Course">
+
+            <input type="number" id="age" placeholder="Enter Age">
+
+            <button onclick="addStudent()">Add Student</button>
+
+        </div>
+
+        <div id="studentContainer"></div>
+
+    </div>
+
+
+    <script>
+
+        // Array to store student details
+        let students = [];
+
+        function addStudent() {
+
+            // Check maximum limit
+            if (students.length >= 5) {
+                alert("You can add only 5 students.");
+                return;
+            }
+
+            // Get values from input fields
+            let name = document.getElementById("name").value;
+            let roll = document.getElementById("roll").value;
+            let course = document.getElementById("course").value;
+            let age = document.getElementById("age").value;
+
+            // Check if fields are empty
+            if (name === "" || roll === "" || course === "" || age === "") {
+                alert("Please fill all the fields.");
+                return;
+            }
+
+            // Create student object
+            let student = {
+                name: name,
+                roll: roll,
+                course: course,
+                age: age
+            };
+
+            // Store student object in array
+            students.push(student);
+
+            // Display students
+            displayStudents();
+
+            // Clear input fields
+            document.getElementById("name").value = "";
+            document.getElementById("roll").value = "";
+            document.getElementById("course").value = "";
+            document.getElementById("age").value = "";
+        }
+
+
+        function displayStudents() {
+
+            let container = document.getElementById("studentContainer");
+
+            // Clear previous display
+            container.innerHTML = "";
+
+            // Loop through student array
+            students.forEach(function(student, index) {
+
+                container.innerHTML += `
+                    <div class="student-card">
+
+                        <h3>Student ${index + 1}</h3>
+
+                        <p><strong>Name:</strong> ${student.name}</p>
+
+                        <p><strong>Roll No:</strong> ${student.roll}</p>
+
+                        <p><strong>Course:</strong> ${student.course}</p>
+
+                        <p><strong>Age:</strong> ${student.age}</p>
+
+                    </div>
+                `;
+            });
+        }
+
+    </script>
+
+</body>
+</html>
